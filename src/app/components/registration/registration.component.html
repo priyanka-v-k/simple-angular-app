@@ -1,0 +1,111 @@
+<div class="d-flex">
+  <div class="align-form"></div>
+  <div class="p-4 registration-form">
+    <h3 class="heading mb-3">Netcore Car Registration Form</h3>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmitHandler()">
+      <div class="form-group mb-3">
+        <label for="fullName" class="form-label">Full Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="fullName"
+          formControlName="fullName"
+          maxlength="75"
+        />
+        <div
+          class="text-danger"
+          *ngIf="
+            (registrationForm.get('fullName')?.dirty ||
+              registrationForm.get('fullName')?.touched) &&
+            registrationForm.get('fullName')?.invalid
+          "
+        >
+          <span
+            *ngIf="(registrationForm.get('fullName')?.errors?.['required']); else invalidCharacters"
+          >
+            Full Name is required
+          </span>
+          <ng-template #invalidCharacters>
+            Only a-z A-Z characters are allowed
+          </ng-template>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="brand" class="form-label mb-0">Brand</label>
+        <ng-select
+          id="brand"
+          class="pb-0"
+          formControlName="brand"
+          [items]="cars"
+          [selectableGroup]="false"
+          [closeOnSelect]="true"
+          [clearable]="true"
+        ></ng-select>
+        <div
+          class="text-danger"
+          *ngIf="
+            (registrationForm.get('brand')?.dirty ||
+              registrationForm.get('brand')?.touched) &&
+            registrationForm.get('brand')?.invalid
+          "
+        >
+          Brand is required
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="autoParts" class="form-label mb-0">Auto Parts</label>
+        <ng-select
+          id="autoParts"
+          class="pb-0"
+          formControlName="autoParts"
+          [items]="autoParts"
+          [multiple]="true"
+          [selectableGroup]="true"
+          [closeOnSelect]="false"
+          [clearable]="true"
+        ></ng-select>
+        <div
+          class="text-danger"
+          *ngIf="
+            (registrationForm.get('autoParts')?.dirty ||
+              registrationForm.get('autoParts')?.touched) &&
+            registrationForm.get('autoParts')?.invalid
+          "
+        >
+          Auto Parts is required
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="color" class="form-label">Car color</label>
+        <input
+          type="color"
+          class="form-control color-input"
+          id="color"
+          formControlName="color"
+          title="Choose your color"
+        />
+        <fa-icon
+          [icon]="faCarSide"
+          class="car-icon"
+          [ngStyle]="{
+            color: registrationForm.get('color')?.value || '#000000'
+          }"
+        ></fa-icon>
+        <div
+          class="text-danger"
+          *ngIf="
+            (registrationForm.get('color')?.dirty ||
+              registrationForm.get('color')?.touched) &&
+            registrationForm.get('color')?.invalid
+          "
+        >
+          Color is required
+        </div>
+      </div>
+      <div class="submit-btn pt-3">
+        <button class="btn" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+  <div class="align-form"></div>
+</div>
