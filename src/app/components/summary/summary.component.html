@@ -1,1 +1,8 @@
-<p>summary works!</p>
+<div
+  class="summary d-flex flex-column justify-content-center align-items-center p-4"
+>
+  <fa-icon [icon]="faCarSide" class="car-icon"></fa-icon>
+  <h5 class="text-break">{{ this.formData }}</h5>
+  <h3 class="py-3">Thanks for starting your journey with us!</h3>
+  <a href="#" (click)="navigateToForm()">Can't wait to register another car?</a>
+</div>

@@ -8,6 +8,7 @@ import {
 import { Subscription } from 'rxjs';
 import { ReferenceDataService } from 'src/app/services/reference-data.service';
 import { faCarSide } from '@fortawesome/free-solid-svg-icons';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-registration',
@@ -23,7 +24,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private referenceDataService: ReferenceDataService
+    private referenceDataService: ReferenceDataService,
+    private sharedService: SharedService
   ) {
     this.registrationForm = this.formBuilder.group({
       fullName: [null, [Validators.required, this.fullNameValidator]],
@@ -34,9 +36,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.subscriptions = new Subscription();
     this.cars = [];
     this.autoParts = [];
-    this.registrationForm.valueChanges.subscribe((value: any) => {
-      console.log(value);
-    });
   }
 
   ngOnInit(): void {
@@ -85,5 +84,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     );
   }
 
-  public onSubmitHandler(): void {}
+  public onSubmitHandler(): void {
+    if (this.registrationForm.valid) {
+      this.sharedService.setFormData({
+        brand: this.registrationForm.controls?.['brand']?.value,
+        autoParts: this.registrationForm.controls?.['autoParts']?.value,
+      });
+      this.sharedService.setFormSubmitted(true);
+    }
+  }
 }

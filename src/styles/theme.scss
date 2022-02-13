@@ -45,6 +45,16 @@
   }
 }
 
+a {
+  color: #5cd6c8 !important;
+  &:active {
+    color: #30d3c0 !important;
+  }
+  &:focus {
+    color: #30d3c0 !important;
+  }
+}
+
 .form-control {
   &:focus {
     border-color: #30d3c0 !important;

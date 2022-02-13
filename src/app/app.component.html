@@ -3,8 +3,11 @@
     <div class="img-section">
       <img src="../assets/form.jpeg" class="w-100 h-100" />
     </div>
-    <div class="form-section w-100">
+    <div *ngIf="!this.formSubmitted" class="form-section w-100">
       <app-registration></app-registration>
+    </div>
+    <div *ngIf="this.formSubmitted" class="w-100">
+      <app-summary></app-summary>
     </div>
   </div>
 </div>
